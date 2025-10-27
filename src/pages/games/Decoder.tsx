@@ -6,29 +6,122 @@ import GameTimer from "@/components/GameTimer";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Circle, Triangle, Square, Hexagon, Star, Diamond } from "lucide-react";
 
-// Sample pattern recognition questions
+// Sample pattern recognition questions - Test Phase (10 questions with progressive difficulty)
 const questions = [
+  // Easy (Questions 1-3): Simple single-rule patterns
   {
     id: 1,
+    grid: [
+      [{ shape: "circle", color: "primary" }, { shape: "circle", color: "primary" }, { shape: "circle", color: "primary" }],
+      [{ shape: "square", color: "primary" }, { shape: "square", color: "primary" }, { shape: "square", color: "primary" }],
+      [{ shape: "triangle", color: "primary" }, { shape: "triangle", color: "primary" }, null]
+    ],
+    options: ["triangle", "circle", "square", "hexagon", "star", "diamond"],
+    correctAnswer: "triangle",
+    explanation: "Each row contains the same shape repeated. The pattern is consistent shapes across rows."
+  },
+  {
+    id: 2,
+    grid: [
+      [{ shape: "circle", color: "primary" }, { shape: "square", color: "primary" }, { shape: "triangle", color: "primary" }],
+      [{ shape: "circle", color: "accent" }, { shape: "square", color: "accent" }, { shape: "triangle", color: "accent" }],
+      [{ shape: "circle", color: "success" }, { shape: "square", color: "success" }, null]
+    ],
+    options: ["triangle", "circle", "square", "hexagon", "star", "diamond"],
+    correctAnswer: "triangle",
+    explanation: "Each column has the same shape with changing colors. Colors progress down each column."
+  },
+  {
+    id: 3,
+    grid: [
+      [{ shape: "circle", color: "primary" }, { shape: "triangle", color: "primary" }, { shape: "square", color: "primary" }],
+      [{ shape: "triangle", color: "primary" }, { shape: "square", color: "primary" }, { shape: "circle", color: "primary" }],
+      [{ shape: "square", color: "primary" }, { shape: "circle", color: "primary" }, null]
+    ],
+    options: ["triangle", "circle", "square", "hexagon", "star", "diamond"],
+    correctAnswer: "triangle",
+    explanation: "Shapes rotate position: each row shifts the pattern one position to the right."
+  },
+  
+  // Medium (Questions 4-7): Two-rule patterns
+  {
+    id: 4,
     grid: [
       [{ shape: "circle", color: "primary" }, { shape: "triangle", color: "accent" }, { shape: "square", color: "success" }],
       [{ shape: "triangle", color: "accent" }, { shape: "square", color: "success" }, { shape: "circle", color: "primary" }],
       [{ shape: "square", color: "success" }, { shape: "circle", color: "primary" }, null]
     ],
-    options: ["triangle", "square", "circle", "hexagon", "star", "diamond"],
+    options: ["triangle", "circle", "square", "hexagon", "star", "diamond"],
     correctAnswer: "triangle",
-    explanation: "Each row contains circle, triangle, and square. Each column also contains each shape once."
+    explanation: "Each row and column contains each shape once. Each row and column also contains each color once."
   },
   {
-    id: 2,
+    id: 5,
     grid: [
       [{ shape: "circle", color: "primary" }, { shape: "circle", color: "accent" }, { shape: "circle", color: "success" }],
-      [{ shape: "square", color: "primary" }, { shape: "square", color: "accent" }, { shape: "square", color: "success" }],
-      [{ shape: "triangle", color: "primary" }, { shape: "triangle", color: "accent" }, null]
+      [{ shape: "triangle", color: "success" }, { shape: "triangle", color: "primary" }, { shape: "triangle", color: "accent" }],
+      [{ shape: "square", color: "accent" }, { shape: "square", color: "success" }, null]
     ],
     options: ["circle", "square", "triangle", "hexagon", "star", "diamond"],
-    correctAnswer: "triangle",
-    explanation: "Pattern follows shapes in rows with colors progressing across columns."
+    correctAnswer: "square",
+    explanation: "Same shapes in each row, but colors shift one position to the right with each row."
+  },
+  {
+    id: 6,
+    grid: [
+      [{ shape: "hexagon", color: "primary" }, { shape: "star", color: "primary" }, { shape: "diamond", color: "primary" }],
+      [{ shape: "star", color: "accent" }, { shape: "diamond", color: "accent" }, { shape: "hexagon", color: "accent" }],
+      [{ shape: "diamond", color: "success" }, { shape: "hexagon", color: "success" }, null]
+    ],
+    options: ["hexagon", "star", "diamond", "circle", "triangle", "square"],
+    correctAnswer: "star",
+    explanation: "Shapes rotate clockwise across rows, while colors change down each column."
+  },
+  {
+    id: 7,
+    grid: [
+      [{ shape: "circle", color: "primary" }, { shape: "square", color: "primary" }, { shape: "triangle", color: "primary" }],
+      [{ shape: "square", color: "accent" }, { shape: "triangle", color: "accent" }, { shape: "circle", color: "accent" }],
+      [{ shape: "triangle", color: "success" }, { shape: "circle", color: "success" }, null]
+    ],
+    options: ["square", "circle", "triangle", "hexagon", "star", "diamond"],
+    correctAnswer: "square",
+    explanation: "Each row shifts shapes one position left, and colors progress down columns."
+  },
+
+  // Hard (Questions 8-10): Three-rule patterns
+  {
+    id: 8,
+    grid: [
+      [{ shape: "circle", color: "primary" }, { shape: "triangle", color: "accent" }, { shape: "square", color: "success" }],
+      [{ shape: "square", color: "accent" }, { shape: "circle", color: "success" }, { shape: "triangle", color: "primary" }],
+      [{ shape: "triangle", color: "success" }, { shape: "square", color: "primary" }, null]
+    ],
+    options: ["circle", "square", "triangle", "hexagon", "star", "diamond"],
+    correctAnswer: "circle",
+    explanation: "Complex rotation: shapes rotate, colors rotate in opposite direction, and positions shift."
+  },
+  {
+    id: 9,
+    grid: [
+      [{ shape: "hexagon", color: "primary" }, { shape: "star", color: "accent" }, { shape: "diamond", color: "success" }],
+      [{ shape: "diamond", color: "accent" }, { shape: "hexagon", color: "success" }, { shape: "star", color: "primary" }],
+      [{ shape: "star", color: "success" }, { shape: "diamond", color: "primary" }, null]
+    ],
+    options: ["hexagon", "star", "diamond", "circle", "triangle", "square"],
+    correctAnswer: "hexagon",
+    explanation: "Three-way rotation: each element cycles through positions, shapes, and colors independently."
+  },
+  {
+    id: 10,
+    grid: [
+      [{ shape: "circle", color: "primary" }, { shape: "square", color: "accent" }, { shape: "triangle", color: "success" }],
+      [{ shape: "triangle", color: "success" }, { shape: "circle", color: "primary" }, { shape: "square", color: "accent" }],
+      [{ shape: "square", color: "accent" }, { shape: "triangle", color: "success" }, null]
+    ],
+    options: ["circle", "square", "triangle", "hexagon", "star", "diamond"],
+    correctAnswer: "circle",
+    explanation: "Diagonal pattern: elements repeat along diagonals from top-left to bottom-right."
   },
 ];
 
@@ -42,7 +135,18 @@ const practiceQuestions = [
     ],
     options: ["triangle", "circle", "square", "hexagon"],
     correctAnswer: "triangle",
-    explanation: "Each column has the same shape, and each row has the same color. The pattern continues with a green triangle."
+    explanation: "Each column has the same shape, and each row has the same color. The missing symbol must be a triangle with the success (green) color to continue the pattern."
+  },
+  {
+    id: "p2",
+    grid: [
+      [{ shape: "circle", color: "primary" }, { shape: "triangle", color: "primary" }, { shape: "square", color: "primary" }],
+      [{ shape: "triangle", color: "primary" }, { shape: "square", color: "primary" }, { shape: "circle", color: "primary" }],
+      [{ shape: "square", color: "primary" }, { shape: "circle", color: "primary" }, null]
+    ],
+    options: ["triangle", "circle", "square", "hexagon"],
+    correctAnswer: "triangle",
+    explanation: "The shapes rotate one position to the left in each row. Following this pattern, the bottom-right position needs a triangle."
   }
 ];
 
@@ -73,9 +177,11 @@ const Decoder = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(240); // 4 minutes for test
+  const [timeRemaining, setTimeRemaining] = useState(240); // 4 minutes for test (240 seconds)
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState<boolean[]>([]);
+  const [responseTimes, setResponseTimes] = useState<number[]>([]);
+  const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now());
 
   const currentQuestions = phase === "practice" ? practiceQuestions : questions;
   const question = currentQuestions[currentQuestion];
@@ -83,33 +189,61 @@ const Decoder = () => {
   useEffect(() => {
     if (phase === "test") {
       const timer = setInterval(() => {
-        setTimeRemaining((prev) => Math.max(0, prev - 1));
+        setTimeRemaining((prev) => {
+          if (prev <= 0) {
+            setPhase("complete");
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
       return () => clearInterval(timer);
     }
   }, [phase]);
 
+  // Reset question start time when question changes
+  useEffect(() => {
+    if (phase === "test" || phase === "practice") {
+      setQuestionStartTime(Date.now());
+    }
+  }, [currentQuestion, phase]);
+
   const handleAnswer = () => {
     if (!selectedAnswer) return;
 
     const isCorrect = selectedAnswer === question.correctAnswer;
+    const responseTime = (Date.now() - questionStartTime) / 1000; // in seconds
     
     if (phase === "practice") {
       setShowFeedback(true);
     } else {
-      setAnswers([...answers, isCorrect]);
+      // Calculate score for this question
+      let questionScore = 0;
       if (isCorrect) {
-        setScore(score + 10);
+        questionScore = 10;
+        // Speed bonus: +5 if answered correctly in under 15 seconds
+        if (responseTime < 15) {
+          questionScore += 5;
+        }
+      } else {
+        // Penalty for incorrect: -2
+        questionScore = -2;
       }
+      
+      setAnswers([...answers, isCorrect]);
+      setResponseTimes([...responseTimes, responseTime]);
+      setScore(score + questionScore);
       
       if (currentQuestion < questions.length - 1) {
         setTimeout(() => {
           setCurrentQuestion(currentQuestion + 1);
           setSelectedAnswer(null);
           setShowFeedback(false);
-        }, 1000);
+        }, 800);
       } else {
-        setPhase("complete");
+        setTimeout(() => {
+          setPhase("complete");
+        }, 800);
       }
     }
   };
@@ -161,7 +295,7 @@ const Decoder = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary font-bold">•</span>
-                    You have 24 seconds per question (but don't rush!)
+                    You have 4 minutes for 10 questions (but don't rush!)
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary font-bold">•</span>
@@ -209,7 +343,17 @@ const Decoder = () => {
 
             <div className="bg-muted/50 p-6 rounded-lg mb-6">
               <p className="text-lg mb-2">You tackled some tricky patterns—nice focus!</p>
-              <div className="text-3xl font-bold text-primary">{score} points</div>
+              <div className="text-3xl font-bold text-primary mb-4">{score} points</div>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-muted-foreground">Correct Answers</p>
+                  <p className="text-lg font-semibold">{answers.filter(a => a).length} / {questions.length}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">Accuracy</p>
+                  <p className="text-lg font-semibold">{Math.round((answers.filter(a => a).length / questions.length) * 100)}%</p>
+                </div>
+              </div>
             </div>
 
             <div className="mb-6">
