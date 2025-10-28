@@ -99,7 +99,7 @@ const Welcome = () => {
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
           <p className="text-sm text-muted-foreground mt-4">
-            Takes approximately 30-40 minutes • Free assessment
+            Takes approximately 25-30 minutes • Free assessment
           </p>
         </div>
       </div>

@@ -1,91 +1,56 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Circle, Triangle, Square, Hexagon, Star, Diamond } from 'lucide-react';
 import BaseGame from '@/components/games/BaseGameEnhanced';
-import { DECODER_QUESTIONS, DECODER_PRACTICE_QUESTIONS } from '@/data/questions/decoderQuestions';
+import { QUANTITATIVE_QUESTIONS, QUANTITATIVE_PRACTICE_QUESTIONS } from '@/data/questions/quantitativeQuestions';
 import { GameResult } from '@/types/assessment';
 import { useAssessment } from '@/context/AssessmentContext';
 import { getNextGame, isLastGame } from '@/data/gameConfig';
 
-const ShapeIcon = ({ shape, color }: { shape: string; color: string }) => {
-  const colorMap: Record<string, string> = {
-    primary: "text-primary",
-    accent: "text-accent",
-    success: "text-success",
-    warning: "text-warning",
-  };
-
-  const shapeMap: Record<string, any> = {
-    circle: Circle,
-    triangle: Triangle,
-    square: Square,
-    hexagon: Hexagon,
-    star: Star,
-    diamond: Diamond,
-  };
-
-  const Icon = shapeMap[shape] || Circle;
-  return <Icon className={`w-12 h-12 ${colorMap[color] || "text-foreground"}`} fill="currentColor" />;
-};
-
-const Decoder = () => {
+const Quantitative = () => {
   const navigate = useNavigate();
   const { setCurrentGame } = useAssessment();
 
   const handleComplete = (result: GameResult) => {
     // BaseGame handles navigation automatically
-    console.log('Decoder game completed:', result);
+    console.log('Quantitative game completed:', result);
   };
 
   return (
     <BaseGame
-      gameId="decoder"
-        gameName="The Decoder"
-      gameDescription="Logical Reasoning Challenge"
-      timeLimit={240}
-      questions={DECODER_QUESTIONS}
-      practiceQuestions={DECODER_PRACTICE_QUESTIONS}
+      gameId="quantitative"
+      gameName="Number Navigator"
+      gameDescription="Quantitative Reasoning Challenge"
+      timeLimit={300}
+      questions={QUANTITATIVE_QUESTIONS}
+      practiceQuestions={QUANTITATIVE_PRACTICE_QUESTIONS}
       onComplete={handleComplete}
     >
       {({ question, selectedAnswer, setSelectedAnswer, showFeedback, handleAnswer, handleContinue, isPractice }) => (
         <>
-          {/* Grid Display */}
+          {/* Question Display */}
           <div className="mb-8">
-            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
-              {question.metadata?.grid.map((row: any[], i: number) => (
-                row.map((cell: any, j: number) => (
-                  <div
-                    key={`${i}-${j}`}
-                    className="aspect-square border-2 border-border rounded-lg flex items-center justify-center bg-card hover:bg-muted/50 transition-colors"
-                  >
-                    {cell ? (
-                      <ShapeIcon shape={cell.shape} color={cell.color} />
-                    ) : (
-                      <span className="text-4xl text-muted-foreground">?</span>
-                    )}
-                  </div>
-                ))
-              ))}
-            </div>
+            <h2 className="text-2xl font-bold text-center mb-6 text-foreground">
+              {question.question}
+            </h2>
           </div>
 
           {/* Options */}
           <div className="mb-6">
-            <p className="text-center text-sm font-semibold text-muted-foreground mb-4">
-              Select the missing symbol:
-            </p>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-3 max-w-2xl mx-auto">
-              {question.options?.map((option) => (
+            <div className="grid gap-3 max-w-2xl mx-auto">
+              {question.options?.map((option, index) => (
                 <button
                   key={option}
                   onClick={() => setSelectedAnswer(option)}
-                  className={`aspect-square border-2 rounded-lg flex items-center justify-center transition-all hover:scale-105 ${
+                  className={`p-4 text-left border-2 rounded-lg transition-all hover:scale-[1.02] ${
                     selectedAnswer === option
                       ? "border-primary bg-primary/10 shadow-medium"
                       : "border-border bg-card hover:bg-muted/50"
                   }`}
                 >
-                  <ShapeIcon shape={option} color="primary" />
+                  <span className="font-semibold text-primary mr-3">
+                    {String.fromCharCode(65 + index)}.
+                  </span>
+                  <span className="text-foreground">{option}</span>
                 </button>
               ))}
             </div>
@@ -138,4 +103,4 @@ const Decoder = () => {
   );
 };
 
-export default Decoder;
+export default Quantitative;

@@ -1,0 +1,138 @@
+import { Question } from '@/types/assessment';
+
+export const VERBAL_QUESTIONS: Question[] = [
+  // Easy (Questions 1-4): Basic word relationships
+  {
+    id: 'v1',
+    type: 'word-association',
+    question: 'Which word is most similar in meaning to "enormous"?',
+    options: ['tiny', 'huge', 'average', 'medium'],
+    correctAnswer: 'huge',
+    explanation: 'Both "enormous" and "huge" mean very large in size.',
+    difficulty: 'easy',
+  },
+  {
+    id: 'v2',
+    type: 'word-association',
+    question: 'What is the opposite of "ancient"?',
+    options: ['old', 'modern', 'historic', 'traditional'],
+    correctAnswer: 'modern',
+    explanation: 'Ancient refers to very old times, while modern refers to current or recent times.',
+    difficulty: 'easy',
+  },
+  {
+    id: 'v3',
+    type: 'word-association',
+    question: 'Which word does not belong with the others?',
+    options: ['apple', 'banana', 'carrot', 'orange'],
+    correctAnswer: 'carrot',
+    explanation: 'Apple, banana, and orange are fruits, while carrot is a vegetable.',
+    difficulty: 'easy',
+  },
+  {
+    id: 'v4',
+    type: 'word-association',
+    question: 'Complete the analogy: Book is to Library as Car is to ___',
+    options: ['road', 'garage', 'driver', 'engine'],
+    correctAnswer: 'garage',
+    explanation: 'A book is stored in a library, just as a car is stored in a garage.',
+    difficulty: 'easy',
+  },
+
+  // Medium (Questions 5-8): Complex word relationships and analogies
+  {
+    id: 'v5',
+    type: 'word-association',
+    question: 'Which word best completes this sentence: "The detective was ___ in his investigation, leaving no stone unturned."',
+    options: ['careless', 'thorough', 'hasty', 'superficial'],
+    correctAnswer: 'thorough',
+    explanation: 'Thorough means complete and careful, which fits the context of leaving no stone unturned.',
+    difficulty: 'medium',
+  },
+  {
+    id: 'v6',
+    type: 'word-association',
+    question: 'What is the relationship between "doctor" and "patient"?',
+    options: ['teacher-student', 'buyer-seller', 'healer-sick person', 'lawyer-client'],
+    correctAnswer: 'healer-sick person',
+    explanation: 'A doctor heals sick people, so the relationship is healer to sick person.',
+    difficulty: 'medium',
+  },
+  {
+    id: 'v7',
+    type: 'word-association',
+    question: 'Which word is most different from the others?',
+    options: ['serene', 'calm', 'peaceful', 'chaotic'],
+    correctAnswer: 'chaotic',
+    explanation: 'Serene, calm, and peaceful all describe a state of tranquility, while chaotic describes disorder.',
+    difficulty: 'medium',
+  },
+  {
+    id: 'v8',
+    type: 'word-association',
+    question: 'Complete the sequence: Happy, Joyful, Ecstatic, ___',
+    options: ['sad', 'content', 'euphoric', 'angry'],
+    correctAnswer: 'euphoric',
+    explanation: 'The sequence shows increasing levels of happiness: happy → joyful → ecstatic → euphoric.',
+    difficulty: 'medium',
+  },
+
+  // Hard (Questions 9-12): Advanced verbal reasoning
+  {
+    id: 'v9',
+    type: 'word-association',
+    question: 'Which word best describes someone who is both intelligent and wise?',
+    options: ['clever', 'sagacious', 'cunning', 'shrewd'],
+    correctAnswer: 'sagacious',
+    explanation: 'Sagacious means having keen mental discernment and good judgment, combining intelligence with wisdom.',
+    difficulty: 'hard',
+  },
+  {
+    id: 'v10',
+    type: 'word-association',
+    question: 'What is the most precise antonym for "ubiquitous"?',
+    options: ['common', 'rare', 'frequent', 'occasional'],
+    correctAnswer: 'rare',
+    explanation: 'Ubiquitous means present everywhere, so its most precise antonym is rare (present in small numbers).',
+    difficulty: 'hard',
+  },
+  {
+    id: 'v11',
+    type: 'word-association',
+    question: 'Which phrase best completes: "The politician\'s speech was ___; it contained many words but little substance."',
+    options: ['concise', 'verbose', 'eloquent', 'articulate'],
+    correctAnswer: 'verbose',
+    explanation: 'Verbose means using more words than necessary, which fits the description of many words but little substance.',
+    difficulty: 'hard',
+  },
+  {
+    id: 'v12',
+    type: 'word-association',
+    question: 'What is the relationship between "ephemeral" and "eternal"?',
+    options: ['synonyms', 'antonyms', 'homonyms', 'cognates'],
+    correctAnswer: 'antonyms',
+    explanation: 'Ephemeral means lasting for a very short time, while eternal means lasting forever - they are opposites.',
+    difficulty: 'hard',
+  },
+];
+
+export const VERBAL_PRACTICE_QUESTIONS: Question[] = [
+  {
+    id: 'vp1',
+    type: 'word-association',
+    question: 'Which word is most similar to "happy"?',
+    options: ['sad', 'joyful', 'angry', 'tired'],
+    correctAnswer: 'joyful',
+    explanation: 'Both "happy" and "joyful" express positive emotions and feelings of pleasure.',
+    difficulty: 'easy',
+  },
+  {
+    id: 'vp2',
+    type: 'word-association',
+    question: 'Complete the analogy: Pen is to Write as Fork is to ___',
+    options: ['eat', 'cook', 'plate', 'food'],
+    correctAnswer: 'eat',
+    explanation: 'A pen is used to write, just as a fork is used to eat.',
+    difficulty: 'easy',
+  },
+];
